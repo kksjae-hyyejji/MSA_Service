@@ -24,7 +24,7 @@ const LoginUser = () => {
         //event.preventDefault();
     }
     return (
-        <div>
+        <div class="col-md-7 col-lg-8">
             <form>
                 <h1 class="h3 mb-3 fw-normal">Please Sign-in</h1>
 
