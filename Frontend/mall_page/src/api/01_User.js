@@ -5,13 +5,14 @@ const baseUrl = process.env.REACT_APP_USER_API_URL;
 const registUserApi = (request) => {
     axios({
         method: 'post',
-        url: baseUrl + "/user/regist",
+        url: baseUrl + "/regist",
         data: request,
         headers: {
             "Content-Type": "application/json; charset=UTF-8"
         }
     }).then((response) => {
         console.log(response);
+        return response;
     }).catch((error) => {
         console.log(error);
     })
@@ -22,13 +23,14 @@ const registUserApi = (request) => {
 const modifyAddressUserApi = (request) => {
     axios({
         method: 'post',
-        url: baseUrl + "/user/address",
+        url: baseUrl + "/address",
         data: request,
         headers: {
             "Content-Type": "application/json; charset=UTF-8"
         }
     }).then((response) => {
         console.log(response);
+        return response;
     }).catch((error) => {
         console.log(error);
     })
@@ -39,13 +41,14 @@ const modifyAddressUserApi = (request) => {
 const loginUserApi = (request) => {
     axios({
         method: 'post',
-        url: baseUrl + "/user/login",
+        url: baseUrl + "/login",
         data: request,
         headers: {
             "Content-Type": "application/json; charset=UTF-8"
         }
     }).then((response) => {
         console.log(response);
+        return response;
     }).catch((error) => {
         console.log(error);
     })

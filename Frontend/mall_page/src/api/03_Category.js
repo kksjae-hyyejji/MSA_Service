@@ -22,13 +22,14 @@ const createCategoryApi = (request) => {
 const getAllCategoriesApi = (request) => {
     axios({
         method: 'get',
-        url: baseUrl + "/category/all",
+        url: baseUrl + "/all",
         data: request,
         headers: {
             "Content-Type": "application/json; charset=UTF-8"
         }
     }).then((response) => {
         console.log(response);
+        return response;
     }).catch((error) => {
         console.log(error);
     })
@@ -39,13 +40,14 @@ const getAllCategoriesApi = (request) => {
 const modifyCategoryApi = (request) => {
     axios({
         method: 'post',
-        url: baseUrl + "/category/modify",
+        url: baseUrl + "/modify",
         data: request,
         headers: {
             "Content-Type": "application/json; charset=UTF-8"
         }
     }).then((response) => {
         console.log(response);
+        return response;
     }).catch((error) => {
         console.log(error);
     })
@@ -56,13 +58,14 @@ const modifyCategoryApi = (request) => {
 const deleteCategoryApi = (request) => {
     axios({
         method: 'post',
-        url: baseUrl + "/category/delete",
+        url: baseUrl + "/delete",
         data: request,
         headers: {
             "Content-Type": "application/json; charset=UTF-8"
         }
     }).then((response) => {
         console.log(response);
+        return response;
     }).catch((error) => {
         console.log(error);
     })

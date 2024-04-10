@@ -5,13 +5,14 @@ const baseUrl=REACT_APP_ORDER_API_URL;
 const createOrderApi = (request) => {
     axios({
         method: 'post',
-        url: baseUrl + "/order/create",
+        url: baseUrl + "/create",
         data: request,
         headers: {
             "Content-Type": "application/json; charset=UTF-8"
         }
     }).then((response) => {
         console.log(response);
+        return response;
     }).catch((error) => {
         console.log(error);
     })
@@ -22,13 +23,14 @@ const createOrderApi = (request) => {
 const cancelOrderApi = (request) => {
     axios({
         method: 'post',
-        url: baseUrl + "/order/cancel",
+        url: baseUrl + "/cancel",
         data: request,
         headers: {
             "Content-Type": "application/json; charset=UTF-8"
         }
     }).then((response) => {
         console.log(response);
+        return response;
     }).catch((error) => {
         console.log(error);
     })
@@ -39,13 +41,14 @@ const cancelOrderApi = (request) => {
 const getOrdersApi = (request) => {
     axios({
         method: 'get',
-        url: baseUrl + "/order/orders",
+        url: baseUrl + "/orders",
         data: request,
         headers: {
             "Content-Type": "application/json; charset=UTF-8"
         }
     }).then((response) => {
         console.log(response);
+        return response;
     }).catch((error) => {
         console.log(error);
     })
