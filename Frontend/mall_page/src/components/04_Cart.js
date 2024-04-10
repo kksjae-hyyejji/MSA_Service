@@ -1,7 +1,8 @@
 const Cart = () => {
 
-    //event.preventDefault();
-
+    const orderByCart = () => {
+        alert("order");
+    }
 
     return (
         <div class="list-group">
@@ -32,7 +33,7 @@ const Cart = () => {
 
 
             <div class="form-check text-start my-0.5"></div>
-            <button class="w-100 btn btn-dark btn-primary btn-lg" type="submit">Order</button>
+            <button class="w-100 btn btn-dark btn-primary btn-lg" onClick={orderByCart}>Order</button>
             <p class="mt-5 mb-3 text-body-secondary">© 2024</p>
         </div>
     );
