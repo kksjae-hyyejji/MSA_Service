@@ -34,7 +34,7 @@ const Header = () => {
 
 const Footer = () => {
     return (
-        <footer class="py-3 my-4">
+        <footer class="py-3 my-4 container">
             {/* TO DO :: 로그인 상태값에 따라 분기 처리 */}
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                 <li class="nav-item"><Link to="/"  class="nav-link px-2 text-body-secondary">Home</Link></li>

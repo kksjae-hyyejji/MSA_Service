@@ -5,13 +5,14 @@ const baseUrl = REACT_APP_CART_API_URL;
 const addCartProductApi = (request) => {
     axios({
         method: 'post',
-        url: baseUrl + "/cart/add",
+        url: baseUrl + "/add",
         data: request,
         headers: {
             "Content-Type": "application/json; charset=UTF-8"
         }
     }).then((response) => {
         console.log(response);
+        return response;
     }).catch((error) => {
         console.log(error);
     })
@@ -22,13 +23,14 @@ const addCartProductApi = (request) => {
 const deleteCartProductsApi = (request) => {
     axios({
         method: 'post',
-        url: baseUrl + "/cart/delete",
+        url: baseUrl + "/delete",
         data: request,
         headers: {
             "Content-Type": "application/json; charset=UTF-8"
         }
     }).then((response) => {
         console.log(response);
+        return response;
     }).catch((error) => {
         console.log(error);
     })
@@ -39,13 +41,14 @@ const deleteCartProductsApi = (request) => {
 const getAllCartProductsApi = (request) => {
     axios({
         method: 'get',
-        url: baseUrl + "/cart/all",
+        url: baseUrl + "/all",
         data: request,
         headers: {
             "Content-Type": "application/json; charset=UTF-8"
         }
     }).then((response) => {
         console.log(response);
+        return response;
     }).catch((error) => {
         console.log(error);
     })
