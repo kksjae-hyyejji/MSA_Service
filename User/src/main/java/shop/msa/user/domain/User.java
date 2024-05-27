@@ -8,7 +8,7 @@ import shop.msa.user.domain.value.Address;
 
 @Entity
 @Getter
-@Table(name = "user",indexes = @Index(name = "login_id_idx", columnList = "loginId", unique = true))
+@Table(name = "shop_user",indexes = @Index(name = "login_id_idx", columnList = "loginId", unique = true))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
