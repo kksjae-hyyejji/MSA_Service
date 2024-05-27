@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.msa.user.controller.request.UserRegistRequest;
 import shop.msa.user.domain.User;
 import shop.msa.user.domain.value.Address;
+import shop.msa.user.exception.CustomException;
+import shop.msa.user.exception.ErrorCode;
 import shop.msa.user.service.cqrs.UserCommandPort;
 import shop.msa.user.service.cqrs.UserQueryPort;
 
@@ -20,7 +22,7 @@ public class UserService {
     public void regist(UserRegistRequest request) {
 
         if (userQueryPort.existsByLoginId(request.getLoginId())) {
-            throw new IllegalStateException("이미 존재하는 회원");
+            throw new CustomException(ErrorCode.DUPLICATE_USER);
         }
 
         Address address = Address.create(request.getCity(), request.getStreet(), request.getZipcode(), request.getDetailedAddress());
