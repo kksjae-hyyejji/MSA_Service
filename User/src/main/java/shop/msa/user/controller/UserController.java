@@ -2,12 +2,14 @@ package shop.msa.user.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shop.msa.user.controller.request.UserRegistRequest;
+import shop.msa.user.response.CommonResponse;
 import shop.msa.user.service.UserService;
 
 @RestController
@@ -21,6 +23,8 @@ public class UserController {
 
         userService.regist(userRegistRequest);
 
-        return ResponseEntity.ok("회원가입 완료");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(CommonResponse.builder()
+                        .message("회원가입 완료").build());
     }
 }
