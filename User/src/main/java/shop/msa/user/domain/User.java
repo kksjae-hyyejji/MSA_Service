@@ -20,13 +20,16 @@ public class User {
     @Column(unique = true)
     private String loginId;
 
+    private String password;
+
     private String phoneNumber;
 
     @Embedded
     private Address address;
 
-    public User(String loginId, String phoneNumber, Address address) {
+    public User(String loginId, String password, String phoneNumber, Address address) {
         this.loginId = loginId;
+        this.password = password;
         this.phoneNumber = phoneNumber;
         this.address = address;
     }

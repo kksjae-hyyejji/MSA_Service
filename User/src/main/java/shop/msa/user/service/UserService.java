@@ -28,6 +28,7 @@ public class UserService {
         Address address = Address.create(request.getCity(), request.getStreet(), request.getZipcode(), request.getDetailedAddress());
 
         userCommandPort.save(new User(request.getLoginId(),
+                request.getPassword(),
                 request.getPhoneNumber(),
                 address));
 

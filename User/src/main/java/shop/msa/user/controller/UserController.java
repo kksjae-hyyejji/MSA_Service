@@ -19,7 +19,7 @@ public class UserController {
 
     private final UserService userService;
     @PostMapping("/regist")
-    public ResponseEntity<?> regist(@Valid @RequestBody UserRegistRequest userRegistRequest) {
+    public ResponseEntity<CommonResponse> regist(@Valid @RequestBody UserRegistRequest userRegistRequest) {
 
         userService.regist(userRegistRequest);
 
@@ -27,4 +27,5 @@ public class UserController {
                 .body(CommonResponse.builder()
                         .message("회원가입 완료").build());
     }
+
 }

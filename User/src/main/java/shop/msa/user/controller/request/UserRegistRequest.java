@@ -8,6 +8,8 @@ public class UserRegistRequest {
 
     @NotBlank(message = "loginId 필수")
     private String loginId;
+    @NotBlank(message = "password 필수")
+    private String password;
     private String phoneNumber;
     private String city;
     private String street;
