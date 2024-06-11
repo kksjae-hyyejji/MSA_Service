@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum ErrorCode {
 
-    DUPLICATE_USER(HttpStatus.CONFLICT, "Duplicate User");
+    DUPLICATE_USER(HttpStatus.CONFLICT, "Duplicate User"),
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error");
 
     private final HttpStatus status;
     private final String message;
