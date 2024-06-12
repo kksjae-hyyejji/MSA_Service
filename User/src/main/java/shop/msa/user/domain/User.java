@@ -20,19 +20,28 @@ public class User {
     @Column(unique = true)
     private String loginId;
 
+    private String password;
+
     private String phoneNumber;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "salt_id")
+    private Salt salt;
 
     @Embedded
     private Address address;
 
-    public User(String loginId, String phoneNumber, Address address) {
+    private User(String loginId, String password, String phoneNumber, Salt salt, Address address) {
         this.loginId = loginId;
+        this.password = password;
         this.phoneNumber = phoneNumber;
+        this.salt = salt;
         this.address = address;
     }
 
-    public void changeAddress(Address address) {
-        this.address = address;
+    public static User createUser(String loginId, String encryptPassword, String phoneNumber, Salt salt, Address address) {
+        return new User(loginId, encryptPassword, phoneNumber, salt, address);
     }
+
 
 }

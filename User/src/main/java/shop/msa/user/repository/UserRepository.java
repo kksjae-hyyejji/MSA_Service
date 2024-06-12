@@ -6,6 +6,8 @@ import shop.msa.user.domain.User;
 import shop.msa.user.service.cqrs.UserCommandPort;
 import shop.msa.user.service.cqrs.UserQueryPort;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class UserRepository implements UserCommandPort, UserQueryPort {
@@ -15,6 +17,11 @@ public class UserRepository implements UserCommandPort, UserQueryPort {
     @Override
     public boolean existsByLoginId(String loginId) {
         return userJpaRepository.existsByLoginId(loginId);
+    }
+
+    @Override
+    public Optional<User> findByLoginId(String loginId) {
+        return userJpaRepository.findByLoginId(loginId);
     }
 
     @Override
