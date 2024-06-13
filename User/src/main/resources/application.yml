@@ -10,3 +10,10 @@ spring:
       console:
         enabled: true
         path: /h2-console
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default_Zone: http://localhost:8761/eureka
