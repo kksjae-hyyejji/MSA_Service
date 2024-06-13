@@ -1,10 +1,10 @@
-package shop.msa.auth.filter;
+package shop.msa.gateway.filter;
 
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import shop.msa.auth.util.JwtUtil;
+import shop.msa.gateway.util.JwtUtil;
 
 @Component
 public class JwtFilter extends AbstractGatewayFilterFactory<JwtFilter.Config> {

@@ -1,4 +1,4 @@
-package shop.msa.auth;
+package shop.msa.gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package shop.msa.auth.util;
+package shop.msa.gateway.util;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
