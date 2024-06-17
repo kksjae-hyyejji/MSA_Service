@@ -12,6 +12,7 @@ import shop.msa.user.exception.CustomException;
 import shop.msa.user.exception.ErrorCode;
 import shop.msa.user.service.cqrs.UserCommandPort;
 import shop.msa.user.service.cqrs.UserQueryPort;
+import shop.msa.user.util.JwtUtil;
 import shop.msa.user.util.PasswordUtil;
 
 import java.util.Optional;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class UserService {
 
     private final PasswordUtil passwordUtil;
+    private final JwtUtil jwtUtil;
     private final UserCommandPort userCommandPort;
     private final UserQueryPort userQueryPort;
 
@@ -39,7 +41,7 @@ public class UserService {
         userCommandPort.save(user);
     }
 
-    public void login(UserLoginRequest userLoginRequest) {
+    public String login(UserLoginRequest userLoginRequest) {
 
         User user = userQueryPort.findByLoginId(userLoginRequest.getLoginId())
                 .orElseThrow(() -> new CustomException(ErrorCode.INVALID_LOGIN));
@@ -48,5 +50,9 @@ public class UserService {
         if (!password.equals(user.getPassword())) {
             throw new CustomException(ErrorCode.INVALID_LOGIN);
         }
+
+        // Role은 추후 세팅하고 변경하며, expire는 환경 변수로 분리 예정.
+        String token = jwtUtil.createJwt(user.getLoginId(), "Normal", 30L * 24 * 60 * 60 * 1000);
+        return token;
     }
 }

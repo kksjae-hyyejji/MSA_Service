@@ -13,6 +13,9 @@ import shop.msa.user.controller.request.UserRegistRequest;
 import shop.msa.user.response.CommonResponse;
 import shop.msa.user.service.UserService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -32,11 +35,11 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<CommonResponse> login(@Valid @RequestBody UserLoginRequest userLoginRequest) {
 
-        userService.login(userLoginRequest);
-
         return ResponseEntity.status(HttpStatus.OK)
                 .body(CommonResponse.builder()
-                        .message("로그인 완료").build());
+                        .message("로그인 완료")
+                        .data(Map.of("Authrorization", userService.login(userLoginRequest)))
+                        .build());
 
     }
 
