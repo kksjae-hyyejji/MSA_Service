@@ -1,15 +1,19 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { registUserApi } from '../api/01_User';
+import { useNavigate } from 'react-router-dom';
 
 const RegistUser = () => {
 
-    const [id,setId]=useState("");
-    const [password,setPassword]=useState("");
-    const [confirmPassword,setConfirmPassword]=useState("");
-    const [phoneNumber,setPhoneNumber]=useState();
-    const [city,setCity]=useState("");
-    const [street,setStreet]=useState("");
-    const [zipCode,setZipCode]=useState();
-    const [detailedAddress,setDetailedAddress]=useState("");
+    const navigate = useNavigate();
+
+    const [id, setId] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState();
+    const [city, setCity] = useState("");
+    const [street, setStreet] = useState("");
+    const [zipCode, setZipCode] = useState();
+    const [detailedAddress, setDetailedAddress] = useState("");
 
     const handleOnChangeId = (e) => {
         setId(e.target.value);
@@ -36,16 +40,52 @@ const RegistUser = () => {
         setDetailedAddress(e.target.value);
     };
 
-    const signUp = () => {
+    const clearAllStates = () => {
+        setId("");
+        setPassword("");
+        setConfirmPassword("");
+        setPhoneNumber("");
+        setCity("");
+        setStreet("");
+        setZipCode("");
+        setDetailedAddress("");
+    }
 
-        if(id===""||password===""||confirmPassword===""||phoneNumber===null||city===""||street===""||zipCode===null||detailedAddress===""){
+    const signUp = async(e) => {
+
+        if (id === "" || password === "" || confirmPassword === "" || phoneNumber === null || city === "" || street === "" || zipCode === null || detailedAddress === "") {
             alert("Please fill in the fields");
             return;
         }
 
-        alert("SignUp");
+        e.preventDefault();
 
-        //event.preventDefault();
+        if (password != confirmPassword) {
+            alert("Password Mismatch");
+            clearAllStates();
+            return;
+        }
+
+        const request = {
+            loginId: id,
+            password: password,
+            phoneNumber: phoneNumber,
+            city: city,
+            street: street,
+            zipCode: zipCode,
+            detailedAddress: detailedAddress
+        };
+
+        const response = await registUserApi(request);
+
+        if (response === null) {
+            alert("Regist failed");
+            clearAllStates();
+            return;
+        }
+
+        navigate('/', { replace: true });
+
     }
 
     return (
@@ -55,43 +95,43 @@ const RegistUser = () => {
                 <div class="row g-3">
                     <div class="col-12">
                         <label class="form-label">Id</label>
-                        <input type="text" class="form-control" placeholder="" value={id} onChange={handleOnChangeId}/>
+                        <input type="text" class="form-control" placeholder="" value={id} onChange={handleOnChangeId} />
                     </div>
 
                     {/* TO DO :: Validation */}
                     <div class="col-12">
                         <label class="form-label">Password</label>
-                        <input type="password" class="form-control" placeholder="" value={password} onChange={handleOnChangePassword}/>
+                        <input type="password" class="form-control" placeholder="" value={password} onChange={handleOnChangePassword} />
                     </div>
 
                     <div class="col-12">
                         <label class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" placeholder="" value={confirmPassword} onChange={handleOnChangeConfirmPassword}/>
+                        <input type="password" class="form-control" placeholder="" value={confirmPassword} onChange={handleOnChangeConfirmPassword} />
                     </div>
 
                     <div class="col-12">
                         <label class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" placeholder="" value={phoneNumber} onChange={handleOnChangePhoneNumber}/>
+                        <input type="tel" class="form-control" placeholder="" value={phoneNumber} onChange={handleOnChangePhoneNumber} />
                     </div>
 
                     <div class="col-sm-4">
                         <label class="form-label">City</label>
-                        <input type="text" class="form-control" placeholder="" value={city} onChange={handleOnChangeCity}/>
+                        <input type="text" class="form-control" placeholder="" value={city} onChange={handleOnChangeCity} />
                     </div>
 
                     <div class="col-sm-5">
                         <label class="form-label">Street</label>
-                        <input type="text" class="form-control" placeholder="" value={street} onChange={handleOnChangeStreet}/>
+                        <input type="text" class="form-control" placeholder="" value={street} onChange={handleOnChangeStreet} />
                     </div>
 
                     <div class="col-sm-3">
                         <label class="form-label">Zip Code</label>
-                        <input type="text" class="form-control" placeholder="" value={zipCode} onChange={handleOnChangeZipCode}/>
+                        <input type="text" class="form-control" placeholder="" value={zipCode} onChange={handleOnChangeZipCode} />
                     </div>
 
                     <div class="col-12">
                         <label class="form-label">Detailed Address</label>
-                        <input type="text" class="form-control" placeholder="" value={detailedAddress} onChange={handleOnChangeDetailedAddress}/>
+                        <input type="text" class="form-control" placeholder="" value={detailedAddress} onChange={handleOnChangeDetailedAddress} />
                     </div>
                 </div>
 

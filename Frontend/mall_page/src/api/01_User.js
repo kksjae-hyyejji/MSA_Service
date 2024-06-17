@@ -3,7 +3,7 @@ import axios from "axios";
 const baseUrl = process.env.REACT_APP_USER_API_URL;
 
 const registUserApi = (request) => {
-    axios({
+    return axios({
         method: 'post',
         url: baseUrl + "/regist",
         data: request,
@@ -12,16 +12,16 @@ const registUserApi = (request) => {
         }
     }).then((response) => {
         console.log(response);
-        return response;
+
+        if (response.status === 200) return response;
     }).catch((error) => {
         console.log(error);
+        return null;
     })
-
-    return null;
 }
 
 const modifyAddressUserApi = (request) => {
-    axios({
+    return axios({
         method: 'post',
         url: baseUrl + "/address",
         data: request,
@@ -30,16 +30,15 @@ const modifyAddressUserApi = (request) => {
         }
     }).then((response) => {
         console.log(response);
-        return response;
+        return response.data;
     }).catch((error) => {
         console.log(error);
+        return null;
     })
-
-    return null;
 }
 
 const loginUserApi = (request) => {
-    axios({
+    return axios({
         method: 'post',
         url: baseUrl + "/login",
         data: request,
@@ -48,12 +47,12 @@ const loginUserApi = (request) => {
         }
     }).then((response) => {
         console.log(response);
-        return response;
+
+        if (response.status === 200) return response;
     }).catch((error) => {
         console.log(error);
+        return null;
     })
-
-    return null;
 }
 
 export { registUserApi, modifyAddressUserApi, loginUserApi };
