@@ -1,0 +1,9 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 120vh;
+  }
+  
+  .contentWrapper{
+    flex: 1;
+  }

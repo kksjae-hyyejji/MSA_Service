@@ -1,1 +1,28 @@
+
 .idea
+=======
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/Frontend/mall_page/node_modules
+/Frontend/mall_page/.pnp
+/Frontend/mall_page/.pnp.js
+
+# testing
+/Frontend/mall_page/coverage
+
+# production
+/Frontend/mall_page/build
+
+# misc
+/Frontend/mall_page/.DS_Store
+/Frontend/mall_page/.env.local
+/Frontend/mall_page/.env.development.local
+/Frontend/mall_page/.env.test.local
+/Frontend/mall_page/.env.production.local
+/Frontend/mall_page/.env
+
+/Frontend/mall_page/npm-debug.log*
+/Frontend/mall_page/yarn-debug.log*
+/Frontend/mall_page/yarn-error.log*
+
