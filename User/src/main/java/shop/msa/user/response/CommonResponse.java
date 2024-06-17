@@ -3,6 +3,7 @@ package shop.msa.user.response;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Singular;
 
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import java.util.Map;
 public class CommonResponse {
 
     private String message;
+
+    @Singular("data")
     private Map<String, Object> data;
 
     @Builder
