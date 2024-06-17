@@ -7,11 +7,19 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: User
+        - id: User-public-api
+          uri: lb://User
+          predicates:
+            - Path=/user/regist, /user/login
+
+        - id : User-private-api
           uri: lb://User
           predicates:
             - Path=/user/**
-
+          filters:
+            - JwtFilter
+  jwt:
+    secret: qwreafdnzxcvlnewoirahklsjklvcfzxcmkvlmklewrmlkzdsf
 eureka:
   client:
     register-with-eureka: true
