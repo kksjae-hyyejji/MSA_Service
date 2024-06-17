@@ -5,7 +5,7 @@ const Cart = () => {
     }
 
     return (
-        <div class="list-group">
+        <div class="list-group col-md-7 col-lg-8">
             <label class="list-group-item d-flex justify-content-between lh-sm">
                 <input class="form-check-input flex-shrink-0" type="checkbox" value="" checked="" />
                 <div>
