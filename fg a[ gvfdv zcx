@@ -1,0 +1,32 @@
+[33mc17dd1d[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop-backend[m[33m)[m HEAD@{0}: reset: moving to HEAD^
+[33m437c44d[m[33m ([m[1;31morigin/develop-backend[m[33m)[m HEAD@{1}: commit: Refactor: User server port 변경
+[33mc17dd1d[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop-backend[m[33m)[m HEAD@{2}: pull: Fast-forward
+[33m72d777b[m HEAD@{3}: checkout: moving from feature-backend/apigateway to develop-backend
+[33mab6cac6[m[33m ([m[1;31morigin/feature-backend/apigateway[m[33m, [m[1;32mfeature-backend/apigateway[m[33m)[m HEAD@{4}: commit: Add : apiGateway User 로드밸런싱, 필터 임시 주석 처리
+[33m72d777b[m HEAD@{5}: checkout: moving from develop-backend to feature-backend/apigateway
+[33m72d777b[m HEAD@{6}: checkout: moving from feature-backend/apigateway to develop-backend
+[33m72d777b[m HEAD@{7}: checkout: moving from develop-backend to feature-backend/apigateway
+[33m72d777b[m HEAD@{8}: pull: Fast-forward
+[33m5d2cfab[m HEAD@{9}: checkout: moving from feature-backend/user to develop-backend
+[33m7b44959[m[33m ([m[1;31morigin/feature-backend/user[m[33m, [m[1;32mfeature-backend/user[m[33m)[m HEAD@{10}: commit: Refactor : Auth -> ApiGateway 명칭 변경
+[33m4b8ba45[m HEAD@{11}: commit: Add : User 서버 Eureka 설정 및 Client 등록
+[33m5d2cfab[m HEAD@{12}: checkout: moving from develop-backend to feature-backend/user
+[33m5d2cfab[m HEAD@{13}: checkout: moving from feature-backend/user to develop-backend
+[33ma8fe4cf[m HEAD@{14}: checkout: moving from develop-backend to feature-backend/user
+[33m5d2cfab[m HEAD@{15}: commit: Add : EurekaServer 서버 초기 세팅
+[33me565c41[m HEAD@{16}: pull: Fast-forward
+[33m577cc0c[m HEAD@{17}: checkout: moving from develop-backend-auth to develop-backend
+[33m0602960[m[33m ([m[1;31morigin/develop-backend-auth[m[33m)[m HEAD@{18}: checkout: moving from feature-backend/user to develop-backend-auth
+[33ma8fe4cf[m HEAD@{19}: commit: Add : User서버 spring cloud client 관련 설정 추가
+[33m51213dd[m HEAD@{20}: commit: Add : User login 로직 추가
+[33me2cd91a[m HEAD@{21}: commit: Add : User password 추가 및 암호화 작성
+[33m9433931[m HEAD@{22}: commit: Refactor : User 도메인 password 추가
+[33m577cc0c[m HEAD@{23}: checkout: moving from develop-backend to feature-backend/user
+[33m577cc0c[m HEAD@{24}: checkout: moving from develop-backend-auth to develop-backend
+[33m0602960[m[33m ([m[1;31morigin/develop-backend-auth[m[33m)[m HEAD@{25}: commit: Add : spring cloud 설정, jwtFilter 틀 작성
+[33m0f26b86[m HEAD@{26}: commit: Refactor : Auth 서버 springsecurity 삭제 (User로 위임 예정)
+[33m12c1c03[m HEAD@{27}: commit: Refactor : jwt 버전 0.12.3으로 변경
+[33m211a0f9[m HEAD@{28}: commit: Add : SpringSecurity 초안 작성
+[33m577cc0c[m HEAD@{29}: checkout: moving from develop-backend to develop-backend-auth
+[33m577cc0c[m HEAD@{30}: checkout: moving from develop to develop-backend
+[33m6568531[m[33m ([m[1;31morigin/develop[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{31}: clone: from https://github.com/kksjae-hyyejji/MSA_Service.git
