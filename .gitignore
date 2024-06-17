@@ -1,3 +1,6 @@
+
+.idea
+=======
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -22,3 +25,4 @@
 /Frontend/mall_page/npm-debug.log*
 /Frontend/mall_page/yarn-debug.log*
 /Frontend/mall_page/yarn-error.log*
+

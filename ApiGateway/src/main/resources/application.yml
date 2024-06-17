@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: SCG
+  cloud:
+    gateway:
+      routes:
+        - id: User-public-api
+          uri: lb://User
+          predicates:
+            - Path=/user/regist, /user/login
+
+        - id : User-private-api
+          uri: lb://User
+          predicates:
+            - Path=/user/**
+          filters:
+            - JwtFilter
+  jwt:
+    secret: qwreafdnzxcvlnewoirahklsjklvcfzxcmkvlmklewrmlkzdsf
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default_Zone: http://localhost:8761/eureka
