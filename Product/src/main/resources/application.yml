@@ -4,7 +4,15 @@ server:
 spring:
   application:
     name: Product
-
+  datasource:
+    url: jdbc:h2:mem:productdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+    h2:
+      console:
+        enabled: true
+        path: /h2-console
 
 eureka:
   client:
