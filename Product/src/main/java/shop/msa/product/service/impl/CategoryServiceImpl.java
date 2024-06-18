@@ -1,5 +1,6 @@
 package shop.msa.product.service.impl;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import shop.msa.product.domain.Category;
@@ -11,6 +12,7 @@ import shop.msa.product.service.cqrs.CategoryQueryPort;
 import shop.msa.product.service.request.CategoryServiceCreateRequest;
 import shop.msa.product.service.response.CategoryResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -22,6 +24,13 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryCommandPort categoryCommandPort;
     private final CategoryQueryPort categoryQueryPort;
 
+    private List<CategoryResponse> categoryCache = new ArrayList<>();
+
+    @PostConstruct
+    public void init() {
+        refreshCategoryCache();
+    }
+
     @Override
     public void create(CategoryServiceCreateRequest request) {
 
@@ -32,21 +41,25 @@ public class CategoryServiceImpl implements CategoryService {
         Category parent = existOrNull(request.getParentId());
         Category category = Category.createCategory(request.getName(), parent);
         categoryCommandPort.save(category);
+        refreshCategoryCache();
 
     }
 
     @Override
     public List<CategoryResponse> getAllCategories() {
-
-        List<Category> roots = categoryQueryPort.findByParentIsNull();
-
-        return roots.stream()
-                .map(CategoryResponse::of)
-                .collect(toList());
+        return categoryCache;
     }
 
     private Category existOrNull(Long parentId) {
         return parentId == null ? null : categoryQueryPort.findById(parentId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NON_EXISTENT_PARENT));
+    }
+
+    private void refreshCategoryCache() {
+        List<Category> roots = categoryQueryPort.findByParentIsNull();
+
+        categoryCache = roots.stream()
+                .map(CategoryResponse::of)
+                .collect(toList());
     }
 }
