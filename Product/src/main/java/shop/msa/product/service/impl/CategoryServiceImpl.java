@@ -3,6 +3,7 @@ package shop.msa.product.service.impl;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import shop.msa.product.domain.Category;
 import shop.msa.product.exception.CustomException;
 import shop.msa.product.exception.ErrorCode;
@@ -32,6 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public void create(CategoryServiceCreateRequest request) {
 
         if(categoryQueryPort.existsByName(request.getName())) {
