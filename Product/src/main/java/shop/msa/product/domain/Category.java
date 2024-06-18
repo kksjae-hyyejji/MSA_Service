@@ -30,4 +30,24 @@ public class Category {
 
     @OneToMany(mappedBy = "parent",cascade = CascadeType.ALL)
     private List<Category> childs = new ArrayList<>();
+
+    private Category(String name, Category parent) {
+        this.name = name;
+        this.parent = parent;
+        this.depth = parent == null ? 1 : parent.getDepth() + 1;
+    }
+
+    public void addChild(Category category) {
+        this.childs.add(category);
+        category.parent = this;
+    }
+
+    public static Category createCategory(String name, Category parent) {
+
+        Category category = new Category(name, parent);
+        if (parent != null) {
+            parent.addChild(category);
+        }
+        return category;
+    }
 }
