@@ -37,6 +37,18 @@ spring:
             - Path=/user/**
           filters:
             - JwtFilter
+
+        - id: Product-public-api
+          uri: lb://Product
+          predicates:
+            - Path=/category/all
+
+        - id: Product-private-api
+          uri: lb://Product
+          predicates:
+            - Path=/product/**, /category/**
+          filters:
+            - JwtFilter
   jwt:
     secret: qwreafdnzxcvlnewoirahklsjklvcfzxcmkvlmklewrmlkzdsf
 eureka:
