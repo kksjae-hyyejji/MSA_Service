@@ -47,6 +47,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     private Category existOrNull(Long parentId) {
         return parentId == null ? null : categoryQueryPort.findById(parentId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NON_EXISTENT_PARENT);
+                .orElseThrow(() -> new CustomException(ErrorCode.NON_EXISTENT_PARENT));
     }
 }
