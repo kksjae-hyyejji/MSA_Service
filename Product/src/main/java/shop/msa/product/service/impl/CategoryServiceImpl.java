@@ -47,7 +47,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     private Category existOrNull(Long parentId) {
         return parentId == null ? null : categoryQueryPort.findById(parentId)
-                .orElseThrow(() -> new IllegalStateException("존재하지 않는 부모 카테고리 값 입력"));
-
+                .orElseThrow(() -> new CustomException(ErrorCode.NON_EXISTENT_PARENT);
     }
 }
