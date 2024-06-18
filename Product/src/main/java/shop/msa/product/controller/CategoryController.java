@@ -4,13 +4,13 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import shop.msa.product.controller.request.CategoryCreateRequest;
 import shop.msa.product.response.CommonResponse;
 import shop.msa.product.service.CategoryService;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,5 +28,16 @@ public class CategoryController {
                 .body(CommonResponse.builder().
                         message("카테고리 생성 완료").
                         build());
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<CommonResponse> all() {
+
+        return ResponseEntity.status(HttpStatus.OK).
+                body(CommonResponse.builder().
+                        message("모든 카테고리 조회").
+                        data(Map.of("AllCategories", categoryService.getAllCategories())).
+                        build());
+
     }
 }

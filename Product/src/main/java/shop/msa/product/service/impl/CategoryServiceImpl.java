@@ -9,6 +9,11 @@ import shop.msa.product.service.CategoryService;
 import shop.msa.product.service.cqrs.CategoryCommandPort;
 import shop.msa.product.service.cqrs.CategoryQueryPort;
 import shop.msa.product.service.request.CategoryServiceCreateRequest;
+import shop.msa.product.service.response.CategoryResponse;
+
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +33,16 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = Category.createCategory(request.getName(), parent);
         categoryCommandPort.save(category);
 
+    }
+
+    @Override
+    public List<CategoryResponse> getAllCategories() {
+
+        List<Category> roots = categoryQueryPort.findByParentIsNull();
+
+        return roots.stream()
+                .map(CategoryResponse::of)
+                .collect(toList());
     }
 
     private Category existOrNull(Long parentId) {
