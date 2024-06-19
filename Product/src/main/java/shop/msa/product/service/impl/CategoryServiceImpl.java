@@ -44,7 +44,30 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = Category.createCategory(request.getName(), parent);
         categoryCommandPort.save(category);
         refreshCategoryCache();
+    }
 
+    public List<Long> findLowestCategoryIds(Long categoryId) {
+
+        CategoryResponse category = findCategoryById(categoryCache, categoryId);
+        if (category == null) {
+            throw new CustomException(ErrorCode.NON_EXISTENT_PARENT);
+        }
+
+        return category.extractLowestCategoryIds();
+    }
+
+    private CategoryResponse findCategoryById(List<CategoryResponse> categories, Long categoryId) {
+        for (CategoryResponse category : categories) {
+            if (category.getId().equals(categoryId)) {
+                return category;
+            } else {
+                CategoryResponse found = findCategoryById(category.getChild(), categoryId);
+                if (found != null) {
+                    return found;
+                }
+            }
+        }
+        return null;
     }
 
     @Override
