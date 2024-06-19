@@ -24,5 +24,13 @@ public class ProductCategory {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    private ProductCategory(Product product, Category category) {
+        this.product = product;
+        this.category = category;
+    }
+
+    public static ProductCategory create(Product product, Category category) {
+        return new ProductCategory(product, category);
+    }
 
 }

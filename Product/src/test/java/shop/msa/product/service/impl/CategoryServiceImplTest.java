@@ -42,7 +42,7 @@ class CategoryServiceImplTest {
         categoryService.create(request);
 
         //then
-        Category category = categoryQueryPort.findByName("one");
+        Category category = categoryQueryPort.findByName("one").get();
         log.info("name = {}, parent = {} ",category.getName(), category.getParent());
     }
 
@@ -65,8 +65,8 @@ class CategoryServiceImplTest {
 
         CategoryServiceCreateRequest request1 = new CategoryServiceCreateRequest(null, "cloth");
         categoryService.create(request1);
-        CategoryServiceCreateRequest request2 = new CategoryServiceCreateRequest(categoryQueryPort.findByName("cloth").getId(), "bottom");
-        CategoryServiceCreateRequest request3 = new CategoryServiceCreateRequest(categoryQueryPort.findByName("cloth").getId(), "top");
+        CategoryServiceCreateRequest request2 = new CategoryServiceCreateRequest(categoryQueryPort.findByName("cloth").get().getId(), "bottom");
+        CategoryServiceCreateRequest request3 = new CategoryServiceCreateRequest(categoryQueryPort.findByName("cloth").get().getId(), "top");
 
         categoryService.create(request2);
         categoryService.create(request3);

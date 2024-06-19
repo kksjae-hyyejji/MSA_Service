@@ -32,4 +32,21 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductCategory> categories = new ArrayList<>();
 
+    private Product(String name, int price, int stock) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.categories = new ArrayList<>();
+        this.status = SellingStatus.SELLING;
+    }
+
+    public static Product create(String name, int price, int stockQuantity) {
+
+        return new Product(name, price, stockQuantity);
+    }
+
+    public void addCategory(ProductCategory productCategory) {
+        this.categories.add(productCategory);
+    }
+
 }

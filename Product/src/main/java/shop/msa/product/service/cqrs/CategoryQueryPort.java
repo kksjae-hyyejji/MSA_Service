@@ -10,7 +10,7 @@ public interface CategoryQueryPort {
 
     boolean existsByName(String name);
 
-    Category findByName(String cloth);
+    Optional<Category> findByName(String cloth);
 
     List<Category> findByParentIsNull();
 }
