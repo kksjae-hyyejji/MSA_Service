@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 @Getter
 @AllArgsConstructor
 public class CategoryResponse {
@@ -33,5 +35,18 @@ public class CategoryResponse {
                         .map(CategoryResponse::of)
                         .collect(Collectors.toList())
         );
+    }
+
+    public List<Long> extractLowestCategoryIds () {
+
+        if (this.getChild() == null || this.getChild().isEmpty()) {
+            return List.of(this.getId());
+        }
+
+        return this.getChild()
+                .stream()
+                .map(CategoryResponse::extractLowestCategoryIds)
+                .flatMap(List::stream)
+                .collect(toList());
     }
 };
