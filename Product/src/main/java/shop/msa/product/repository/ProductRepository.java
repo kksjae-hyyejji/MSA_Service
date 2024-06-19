@@ -6,6 +6,8 @@ import shop.msa.product.domain.Product;
 import shop.msa.product.service.cqrs.ProductCommandPort;
 import shop.msa.product.service.cqrs.ProductQueryPort;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class ProductRepository implements ProductCommandPort, ProductQueryPort {
@@ -20,5 +22,10 @@ public class ProductRepository implements ProductCommandPort, ProductQueryPort {
     @Override
     public boolean existsByName(String name) {
         return productJpaRepository.existsByName(name);
+    }
+
+    @Override
+    public Optional<Product> findByName(String name) {
+        return productJpaRepository.findByName(name);
     }
 }
