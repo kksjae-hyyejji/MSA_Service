@@ -2,7 +2,13 @@ package shop.msa.product.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import shop.msa.product.domain.Category;
+import shop.msa.product.domain.Product;
+import shop.msa.product.domain.ProductCategory;
+import shop.msa.product.exception.CustomException;
+import shop.msa.product.exception.ErrorCode;
 import shop.msa.product.service.ProductService;
+import shop.msa.product.service.cqrs.CategoryQueryPort;
 import shop.msa.product.service.cqrs.ProductCommandPort;
 import shop.msa.product.service.cqrs.ProductQueryPort;
 import shop.msa.product.service.request.ProductServiceCreateRequest;
@@ -13,10 +19,21 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductCommandPort productCommandPort;
     private final ProductQueryPort productQueryPort;
+    private final CategoryQueryPort categoryQueryPort;
 
     @Override
     public void create(ProductServiceCreateRequest request) {
 
+        Category category = categoryQueryPort.findByName(request.getCategory())
+                .orElseThrow(() -> new CustomException(ErrorCode.NON_EXISTENT_CATEGORY));
+        if (!category.getChilds().isEmpty()) throw new CustomException(ErrorCode.NOT_LOWEST_CATEGORY);
+        if (productQueryPort.existsByName(request.getName())) throw new CustomException(ErrorCode.DUPLICATE_PRODUCT);
 
+        Product product = Product.create(request.getName(), request.getPrice(),
+                request.getStockQuantity());
+        ProductCategory productCategory = ProductCategory.create(product, category);
+        product.addCategory(productCategory);
+
+        productCommandPort.save(product);
     }
 }
