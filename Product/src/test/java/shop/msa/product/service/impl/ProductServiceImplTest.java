@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import shop.msa.product.controller.request.ProductCreateRequest;
@@ -14,6 +15,7 @@ import shop.msa.product.service.ProductService;
 import shop.msa.product.service.cqrs.CategoryQueryPort;
 import shop.msa.product.service.cqrs.ProductQueryPort;
 import shop.msa.product.service.request.CategoryServiceCreateRequest;
+import shop.msa.product.service.response.ProductResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -74,5 +76,27 @@ class ProductServiceImplTest {
         //when & then
         productService.create(request1.toServiceRequest());
         assertThrows(CustomException.class, () -> productService.create(request1.toServiceRequest()));
+    }
+
+    @Test
+    @DisplayName("상품을 7개 생성하고, 페이징의 결과를 확인한다.")
+    public void exactlyMatchPagingResult() {
+
+        CategoryServiceCreateRequest c = new CategoryServiceCreateRequest(null, "test");
+        categoryService.create(c);
+
+        for (int i = 0; i < 7; i++) {
+            ProductCreateRequest request1 = new ProductCreateRequest("등록" + i,"test",3000,30);
+            productService.create(request1.toServiceRequest());
+        }
+
+        int pageNum = 0;
+        Page<ProductResponse> result = productService.getProducts(categoryQueryPort.findByName("test").get().getId(), 0);
+
+        assertThat(result.getTotalElements()).isEqualTo(7);
+        assertThat(result.getTotalPages()).isEqualTo(3);
+        assertThat(result.getNumber()).isEqualTo(pageNum);
+        assertThat(result.getSize()).isEqualTo(3);
+
     }
 }

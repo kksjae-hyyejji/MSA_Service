@@ -4,13 +4,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import shop.msa.product.controller.request.ProductCreateRequest;
 import shop.msa.product.response.CommonResponse;
 import shop.msa.product.service.ProductService;
+
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +26,16 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(CommonResponse.builder().
                         message("상품 생성 완료")
+                        .build());
+    }
+
+    @GetMapping("/{categoryId}")
+    public ResponseEntity<?> getProducts(@PathVariable Long categoryId, int pageNum) {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(CommonResponse.builder().
+                        message("상품 리스트")
+                        .data(Map.of("productList",productService.getProducts(categoryId, pageNum)))
                         .build());
     }
 }
