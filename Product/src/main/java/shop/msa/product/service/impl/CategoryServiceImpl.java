@@ -46,6 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
         refreshCategoryCache();
     }
 
+    @Override
     public List<Long> findLowestCategoryIds(Long categoryId) {
 
         CategoryResponse category = findCategoryById(categoryCache, categoryId);

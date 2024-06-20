@@ -10,4 +10,6 @@ public interface CategoryService {
     void create(CategoryServiceCreateRequest request);
 
     List<CategoryResponse> getAllCategories();
+
+    List<Long> findLowestCategoryIds(Long categoryId);
 }

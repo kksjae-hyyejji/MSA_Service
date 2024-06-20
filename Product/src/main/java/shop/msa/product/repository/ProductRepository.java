@@ -1,11 +1,15 @@
 package shop.msa.product.repository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import shop.msa.product.domain.Product;
 import shop.msa.product.service.cqrs.ProductCommandPort;
 import shop.msa.product.service.cqrs.ProductQueryPort;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -28,4 +32,10 @@ public class ProductRepository implements ProductCommandPort, ProductQueryPort {
     public Optional<Product> findByName(String name) {
         return productJpaRepository.findByName(name);
     }
+
+    @Override
+    public Page<Product> findDistinctByCategories_Category_IdIn(List<Long> categoryIds, Pageable pageable) {
+        return productJpaRepository.findDistinctByCategories_Category_IdIn(categoryIds, pageable);
+    }
+
 }

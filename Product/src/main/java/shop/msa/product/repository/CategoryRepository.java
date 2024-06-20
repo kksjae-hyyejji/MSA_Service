@@ -17,8 +17,8 @@ public class CategoryRepository implements CategoryCommandPort, CategoryQueryPor
     private final CategoryJpaRepository categoryJpaRepository;
 
     @Override
-    public Optional<Category> findById(Long parentId) {
-        return categoryJpaRepository.findById(parentId);
+    public Optional<Category> findById(Long categoryId) {
+        return categoryJpaRepository.findById(categoryId);
     }
 
     @Override
