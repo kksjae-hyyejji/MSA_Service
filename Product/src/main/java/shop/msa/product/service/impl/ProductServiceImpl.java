@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import shop.msa.product.domain.Category;
 import shop.msa.product.domain.Product;
 import shop.msa.product.domain.ProductCategory;
@@ -30,6 +31,7 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryService categoryService;
 
     @Override
+    @Transactional
     public void create(ProductServiceCreateRequest request) {
 
         Category category = categoryQueryPort.findByName(request.getCategory())
