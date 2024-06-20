@@ -41,7 +41,7 @@ spring:
         - id: Product-public-api
           uri: lb://Product
           predicates:
-            - Path=/category/all
+            - Path=/product/**, /category/**
 
         - id: Product-private-api
           uri: lb://Product
