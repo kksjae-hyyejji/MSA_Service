@@ -30,7 +30,7 @@ public class ProductController {
     }
 
     @GetMapping("/{categoryId}")
-    public ResponseEntity<?> getProducts(@PathVariable Long categoryId, int pageNum) {
+    public ResponseEntity<CommonResponse> getProducts(@PathVariable Long categoryId, int pageNum) {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(CommonResponse.builder().
