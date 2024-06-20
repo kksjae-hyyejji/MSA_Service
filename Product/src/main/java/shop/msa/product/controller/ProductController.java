@@ -30,12 +30,22 @@ public class ProductController {
     }
 
     @GetMapping("/{categoryId}")
-    public ResponseEntity<?> getProducts(@PathVariable Long categoryId, int pageNum) {
+    public ResponseEntity<CommonResponse> getProducts(@PathVariable Long categoryId, int pageNum) {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(CommonResponse.builder().
                         message("상품 리스트")
                         .data(Map.of("productList",productService.getProducts(categoryId, pageNum)))
+                        .build());
+    }
+
+    @GetMapping("{productId}")
+    public ResponseEntity<CommonResponse> getProduct(@PathVariable Long productId) {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(CommonResponse.builder()
+                        .message("상품 상세 정보")
+                        .data(Map.of("product", productService.getProduct(productId)))
                         .build());
     }
 }

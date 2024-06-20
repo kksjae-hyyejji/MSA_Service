@@ -15,6 +15,7 @@ import shop.msa.product.service.ProductService;
 import shop.msa.product.service.cqrs.CategoryQueryPort;
 import shop.msa.product.service.cqrs.ProductQueryPort;
 import shop.msa.product.service.request.CategoryServiceCreateRequest;
+import shop.msa.product.service.response.ProductInfoResponse;
 import shop.msa.product.service.response.ProductResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -98,5 +99,28 @@ class ProductServiceImplTest {
         assertThat(result.getNumber()).isEqualTo(pageNum);
         assertThat(result.getSize()).isEqualTo(3);
 
+    }
+
+    @Test
+    @DisplayName("상품 조회에 성공한다.")
+    public void getProductInfo() {
+
+        CategoryServiceCreateRequest c = new CategoryServiceCreateRequest(null, "test");
+        categoryService.create(c);
+        ProductCreateRequest request1 = new ProductCreateRequest("등록","test",3000,30);
+        productService.create(request1.toServiceRequest());
+
+        ProductInfoResponse response = productService.getProduct(productQueryPort.findByName("등록").get().getId());
+
+        assertThat(response.getName()).isEqualTo("등록");
+        assertThat(response.getPrice()).isEqualTo(3000);
+        assertThat(response.getStock()).isEqualTo(30);
+    }
+
+    @Test
+    @DisplayName("없는 상품 조회에 실패한다.")
+    public void failToGetNonExistentProduct() {
+
+        assertThrows(CustomException.class, () -> productService.getProduct(1L));
     }
 }

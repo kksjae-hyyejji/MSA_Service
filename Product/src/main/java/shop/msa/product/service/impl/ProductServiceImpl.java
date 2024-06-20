@@ -15,6 +15,7 @@ import shop.msa.product.service.cqrs.CategoryQueryPort;
 import shop.msa.product.service.cqrs.ProductCommandPort;
 import shop.msa.product.service.cqrs.ProductQueryPort;
 import shop.msa.product.service.request.ProductServiceCreateRequest;
+import shop.msa.product.service.response.ProductInfoResponse;
 import shop.msa.product.service.response.ProductResponse;
 
 import java.util.List;
@@ -51,5 +52,12 @@ public class ProductServiceImpl implements ProductService {
         Page<Product> products = productQueryPort.findDistinctByCategories_Category_IdIn(ids, PageRequest.of(pageNum, 3));
 
         return products.map(p -> new ProductResponse(p.getId(), p.getName(), p.getPrice()));
+    }
+
+    @Override
+    public ProductInfoResponse getProduct(Long productId) {
+
+        Product product = productQueryPort.findById(productId).orElseThrow(() -> new CustomException(ErrorCode.NON_EXISTENT_PRODUCT));
+        return new ProductInfoResponse(product.getId(),product.getName(), product.getPrice(), product.getStock());
     }
 }

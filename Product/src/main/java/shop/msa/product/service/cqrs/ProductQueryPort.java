@@ -15,4 +15,6 @@ public interface ProductQueryPort {
     Optional<Product> findByName(String name);
 
     Page<Product> findDistinctByCategories_Category_IdIn(List<Long> categoryIds, Pageable pageable);
+
+    Optional<Product> findById(Long productId);
 }

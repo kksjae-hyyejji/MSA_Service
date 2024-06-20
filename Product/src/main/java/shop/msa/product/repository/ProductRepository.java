@@ -38,4 +38,9 @@ public class ProductRepository implements ProductCommandPort, ProductQueryPort {
         return productJpaRepository.findDistinctByCategories_Category_IdIn(categoryIds, pageable);
     }
 
+    @Override
+    public Optional<Product> findById(Long productId) {
+        return productJpaRepository.findById(productId);
+    }
+
 }
