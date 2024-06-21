@@ -52,9 +52,9 @@ public class ProductController {
     }
 
     @PostMapping("/{productId}")
-    public ResponseEntity<CommonResponse> addToCart(@RequestHeader String name, @PathVariable Long productId) throws NoSuchFieldException, IllegalAccessException {
+    public ResponseEntity<CommonResponse> addToCart(@RequestHeader String userId, @PathVariable Long productId) throws NoSuchFieldException, IllegalAccessException {
 
-        productService.addToCart(name, productId);
+        productService.addToCart(userId, productId);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(CommonResponse.builder()

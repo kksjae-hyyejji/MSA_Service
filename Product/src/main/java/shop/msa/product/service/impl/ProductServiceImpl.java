@@ -70,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addToCart(String name, Long productId) {
+    public void addToCart(String userId, Long productId) {
 
         cartWebClient.post()
                 .body(BodyInserters.empty())
