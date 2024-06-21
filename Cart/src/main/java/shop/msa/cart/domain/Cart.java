@@ -17,7 +17,14 @@ public class Cart {
     private Long id;
 
     @Column(name = "user_id")
-    private Long userId;
+    private String userId;
 
+    private Cart(String userId) {
+        this.userId = userId;
+    }
+
+    public static Cart create(String userId) {
+        return new Cart(userId);
+    }
 }
 
