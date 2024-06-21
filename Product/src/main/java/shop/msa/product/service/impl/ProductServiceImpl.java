@@ -1,10 +1,15 @@
 package shop.msa.product.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.UriComponentsBuilder;
 import shop.msa.product.domain.Category;
 import shop.msa.product.domain.Product;
 import shop.msa.product.domain.ProductCategory;
@@ -29,6 +34,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductQueryPort productQueryPort;
     private final CategoryQueryPort categoryQueryPort;
     private final CategoryService categoryService;
+    private final WebClient cartWebClient;
 
     @Override
     @Transactional
@@ -61,5 +67,15 @@ public class ProductServiceImpl implements ProductService {
 
         Product product = productQueryPort.findById(productId).orElseThrow(() -> new CustomException(ErrorCode.NON_EXISTENT_PRODUCT));
         return new ProductInfoResponse(product.getId(),product.getName(), product.getPrice(), product.getStock());
+    }
+
+    @Override
+    public void addToCart(String name, Long productId) {
+
+        cartWebClient.post()
+                .body(BodyInserters.empty())
+                .retrieve()
+                .bodyToMono(Void.class)
+                .subscribe();
     }
 }
