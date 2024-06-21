@@ -22,6 +22,7 @@ public class CartProduct {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
+    @Column(unique = true)
     private Long productId;
 
     private String productName;
