@@ -8,8 +8,10 @@ import shop.msa.cart.domain.Cart;
 import shop.msa.cart.domain.CartProduct;
 import shop.msa.cart.service.CartService;
 import shop.msa.cart.service.cqrs.CartCommandPort;
+import shop.msa.cart.service.cqrs.CartProductCommandPort;
 import shop.msa.cart.service.cqrs.CartProductQueryPort;
 import shop.msa.cart.service.cqrs.CartQueryPort;
+import shop.msa.cart.service.request.CartServiceAddRequest;
 import shop.msa.cart.service.response.MyCartProductResponse;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
 
     private final CartProductQueryPort cartProductQueryPort;
+    private final CartProductCommandPort cartProductCommandPort;
     private final CartCommandPort cartCommandPort;
     private final CartQueryPort cartQueryPort;
     private final EntityManager em;
@@ -38,6 +41,19 @@ public class CartServiceImpl implements CartService {
         return cartProducts.stream().
                 map(c -> new MyCartProductResponse(c.getProductId(), c.getProductName(), c.getPrice()))
                 .toList();
+    }
+
+    @Override
+    @Transactional
+    public void addProductInCart(String username, CartServiceAddRequest request) {
+
+        Cart cart = cartQueryPort.findByUserId(username);
+        if (cart == null) {
+            cart = createCart(username);
+        }
+
+        CartProduct product = CartProduct.create(cart, request.getId(), request.getName(), request.getPrice());
+        cartProductCommandPort.save(product);
     }
 
     public Cart createCart(String userId) {
