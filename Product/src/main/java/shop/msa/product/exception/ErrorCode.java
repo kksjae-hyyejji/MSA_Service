@@ -15,7 +15,7 @@ public enum ErrorCode {
 
     DUPLICATE_PRODUCT(HttpStatus.BAD_REQUEST, "중복된 상품 이름입니다."),
     NON_EXISTENT_PRODUCT(HttpStatus.BAD_REQUEST, "존재하지 않는 상품입니다." ),
-
+    OUT_OF_STOCK(HttpStatus.BAD_REQUEST, "품절된 상품입니다."),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error");
 
     private final HttpStatus status;
