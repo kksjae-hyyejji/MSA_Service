@@ -22,10 +22,22 @@ public class CartProduct {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
+    @Column(unique = true)
     private Long productId;
 
     private String productName;
 
     private int price;
 
+    private CartProduct(Cart cart, Long productId, String productName, int price) {
+        this.cart = cart;
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+    }
+
+    public static CartProduct create(Cart cart, Long productId, String name, int price) {
+
+        return new CartProduct(cart, productId, name, price);
+    }
 }
