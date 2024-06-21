@@ -2,9 +2,11 @@ package shop.msa.product.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.netflix.eureka.http.WebClientEurekaHttpClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 import shop.msa.product.controller.request.ProductCreateRequest;
 import shop.msa.product.response.CommonResponse;
 import shop.msa.product.service.ProductService;
