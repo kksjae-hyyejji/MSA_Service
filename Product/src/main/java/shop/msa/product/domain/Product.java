@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.msa.product.domain.enumtype.SellingStatus;
+import shop.msa.product.exception.CustomException;
+import shop.msa.product.exception.ErrorCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,4 +51,7 @@ public class Product {
         this.categories.add(productCategory);
     }
 
+    public void canAddToCart() {
+        if (this.stock <= 0) throw new CustomException(ErrorCode.OUT_OF_STOCK);
+    }
 }

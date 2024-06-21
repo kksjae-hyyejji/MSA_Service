@@ -13,4 +13,6 @@ public interface ProductService {
     Page<ProductResponse> getProducts(Long categoryId, int pageNum);
 
     ProductInfoResponse getProduct(Long productId);
+
+    void addToCart(String name, Long productId);
 }
