@@ -2,9 +2,11 @@ package shop.msa.product.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.netflix.eureka.http.WebClientEurekaHttpClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 import shop.msa.product.controller.request.ProductCreateRequest;
 import shop.msa.product.response.CommonResponse;
 import shop.msa.product.service.ProductService;
@@ -46,6 +48,17 @@ public class ProductController {
                 .body(CommonResponse.builder()
                         .message("상품 상세 정보")
                         .data(Map.of("product", productService.getProduct(productId)))
+                        .build());
+    }
+
+    @PostMapping("/{productId}")
+    public ResponseEntity<CommonResponse> addToCart(@RequestHeader String name, @PathVariable Long productId) throws NoSuchFieldException, IllegalAccessException {
+
+        productService.addToCart(name, productId);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(CommonResponse.builder()
+                        .message("장바구니에 추가되었습니다.")
                         .build());
     }
 }
