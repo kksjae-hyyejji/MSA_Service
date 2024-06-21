@@ -70,10 +70,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addToCart(String userId, Long productId) {
+    public void addToCart(String username, Long productId) {
+
+        Product product = productQueryPort.findById(productId).orElseThrow(() -> new CustomException(ErrorCode.NON_EXISTENT_PRODUCT));
+        product.canAddToCart();
 
         cartWebClient.post()
-                .body(BodyInserters.empty())
+                .header("username", username)
+                .body(BodyInserters.fromValue(new ProductResponse(product.getId(), product.getName(), product.getPrice())))
                 .retrieve()
                 .bodyToMono(Void.class)
                 .subscribe();
