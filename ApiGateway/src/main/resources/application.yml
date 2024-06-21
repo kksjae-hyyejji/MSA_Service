@@ -49,6 +49,11 @@ spring:
             - Path=/product/**, /category/**
           filters:
             - JwtFilter
+
+        - id: Cart-public-api
+          uri: lb://Cart
+          predicates:
+            - Path=/cart/**
   jwt:
     secret: qwreafdnzxcvlnewoirahklsjklvcfzxcmkvlmklewrmlkzdsf
 eureka:
