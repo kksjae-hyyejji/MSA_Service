@@ -43,4 +43,9 @@ public class ProductRepository implements ProductCommandPort, ProductQueryPort {
         return productJpaRepository.findById(productId);
     }
 
+    @Override
+    public List<Product> findByIdIn(List<Long> productIds) {
+        return productJpaRepository.findByIdIn(productIds);
+    }
+
 }

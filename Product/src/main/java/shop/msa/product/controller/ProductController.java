@@ -7,10 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
+import shop.msa.product.controller.request.OrderProductRequest;
 import shop.msa.product.controller.request.ProductCreateRequest;
 import shop.msa.product.response.CommonResponse;
 import shop.msa.product.service.ProductService;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -59,6 +61,17 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(CommonResponse.builder()
                         .message("장바구니에 추가되었습니다.")
+                        .build());
+    }
+
+    @PostMapping("/order")
+    public ResponseEntity<CommonResponse> order(@RequestHeader String username, List<OrderProductRequest> orders) {
+
+        productService.order(username, orders);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(CommonResponse.builder()
+                        .message("주문이 접수되었습니다.")
                         .build());
     }
 }
