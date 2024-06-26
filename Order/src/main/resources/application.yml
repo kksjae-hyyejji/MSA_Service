@@ -18,6 +18,26 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: foo0
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+producers:
+  bootstrap-servers: localhost:9092
+
+consumer:
+  topic1:
+    name: order_create
+  groupid:
+    name: order
 
 eureka:
   client:
