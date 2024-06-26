@@ -17,6 +17,7 @@ import shop.msa.product.domain.ProductCategory;
 import shop.msa.product.exception.CustomException;
 import shop.msa.product.exception.ErrorCode;
 import shop.msa.product.service.CategoryService;
+import shop.msa.product.service.KafkaProducerService;
 import shop.msa.product.service.ProductService;
 import shop.msa.product.service.cqrs.CategoryQueryPort;
 import shop.msa.product.service.cqrs.ProductCommandPort;
@@ -39,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryQueryPort categoryQueryPort;
     private final CategoryService categoryService;
     private final WebClient cartWebClient;
+    private final KafkaProducerService kafkaProducerService;
 
     @Override
     @Transactional
@@ -104,6 +106,8 @@ public class ProductServiceImpl implements ProductService {
             int quantity = orders.get(i).getQuantity();
             p.canBuy(quantity);
         }
+
+        kafkaProducerService.occurOrderCreateEvent(username, orders);
 
     }
 

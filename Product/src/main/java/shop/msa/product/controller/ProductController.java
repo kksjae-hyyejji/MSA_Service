@@ -65,7 +65,7 @@ public class ProductController {
     }
 
     @PostMapping("/order")
-    public ResponseEntity<CommonResponse> order(@RequestHeader String username, List<OrderProductRequest> orders) {
+    public ResponseEntity<CommonResponse> order(@RequestHeader String username, @RequestBody List<OrderProductRequest> orders) {
 
         productService.order(username, orders);
 
