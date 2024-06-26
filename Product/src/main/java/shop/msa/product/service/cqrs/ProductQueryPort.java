@@ -17,4 +17,6 @@ public interface ProductQueryPort {
     Page<Product> findDistinctByCategories_Category_IdIn(List<Long> categoryIds, Pageable pageable);
 
     Optional<Product> findById(Long productId);
+
+    List<Product> findByIdIn(List<Long> productIds);
 }

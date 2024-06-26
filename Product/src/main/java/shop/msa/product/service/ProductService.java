@@ -1,9 +1,12 @@
 package shop.msa.product.service;
 
 import org.springframework.data.domain.Page;
+import shop.msa.product.controller.request.OrderProductRequest;
 import shop.msa.product.service.request.ProductServiceCreateRequest;
 import shop.msa.product.service.response.ProductInfoResponse;
 import shop.msa.product.service.response.ProductResponse;
+
+import java.util.List;
 
 
 public interface ProductService {
@@ -15,4 +18,6 @@ public interface ProductService {
     ProductInfoResponse getProduct(Long productId);
 
     void addToCart(String name, Long productId);
+
+    void order(String username, List<OrderProductRequest> orders);
 }

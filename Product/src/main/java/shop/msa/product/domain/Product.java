@@ -54,4 +54,10 @@ public class Product {
     public void canAddToCart() {
         if (this.stock <= 0) throw new CustomException(ErrorCode.OUT_OF_STOCK);
     }
+
+    public void canBuy(int quantity) {
+
+        canAddToCart();
+        if (this.stock < quantity) throw new CustomException(ErrorCode.INSUFFICIENT_STOCK);
+    }
 }

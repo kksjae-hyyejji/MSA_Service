@@ -19,4 +19,6 @@ public interface ProductJpaRepository extends JpaRepository<Product, Long> {
 
     @Query(countQuery = "SELECT count(distinct(pc.id)) FROM ProductCategory pc WHERE pc.id IN :ids")
     Page<Product> findDistinctByCategories_Category_IdIn(List<Long> ids, Pageable pageable);
+
+    List<Product> findByIdIn(List<Long> productIds);
 }

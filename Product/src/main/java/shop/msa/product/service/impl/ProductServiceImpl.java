@@ -10,12 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
+import shop.msa.product.controller.request.OrderProductRequest;
 import shop.msa.product.domain.Category;
 import shop.msa.product.domain.Product;
 import shop.msa.product.domain.ProductCategory;
 import shop.msa.product.exception.CustomException;
 import shop.msa.product.exception.ErrorCode;
 import shop.msa.product.service.CategoryService;
+import shop.msa.product.service.KafkaProducerService;
 import shop.msa.product.service.ProductService;
 import shop.msa.product.service.cqrs.CategoryQueryPort;
 import shop.msa.product.service.cqrs.ProductCommandPort;
@@ -24,7 +26,10 @@ import shop.msa.product.service.request.ProductServiceCreateRequest;
 import shop.msa.product.service.response.ProductInfoResponse;
 import shop.msa.product.service.response.ProductResponse;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryQueryPort categoryQueryPort;
     private final CategoryService categoryService;
     private final WebClient cartWebClient;
+    private final KafkaProducerService kafkaProducerService;
 
     @Override
     @Transactional
@@ -82,4 +88,27 @@ public class ProductServiceImpl implements ProductService {
                 .bodyToMono(Void.class)
                 .subscribe();
     }
+
+    @Override
+    public void order(String username, List<OrderProductRequest> orders) {
+
+        orders.sort(Comparator.comparingLong(OrderProductRequest::getProductId));
+        List<Long> productIds = orders.stream()
+                .map(OrderProductRequest::getProductId)
+                .toList();
+
+        List<Product> products = productQueryPort.findByIdIn(productIds);
+        products.sort(Comparator.comparingLong(Product::getId));
+        if (products.size() != orders.size()) throw new CustomException(ErrorCode.NON_EXISTENT_PRODUCT);
+
+        for (int i = 0; i < products.size(); i++) {
+            Product p = products.get(i);
+            int quantity = orders.get(i).getQuantity();
+            p.canBuy(quantity);
+        }
+
+        kafkaProducerService.occurOrderCreateEvent(username, orders);
+
+    }
+
 }
